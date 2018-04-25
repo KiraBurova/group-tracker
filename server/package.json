@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch src --exec npm run server",
+    "start": "nodemon --watch src --exec npm run server && lint",
     "lint": "eslint **/*.js",
     "server": "node src/app.js"
   },
@@ -12,12 +12,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
+    "joi": "^13.1.2",
+    "jws": "^3.1.4",
+    "mongodb": "^3.0.5",
     "morgan": "^1.9.0",
-    "nodemon": "^1.17.2"
+    "nodemon": "^1.17.2",
+    "sequelize": "^4.37.5",
+    "sqlite3": "^3.1.13"
   },
   "devDependencies": {
     "eslint-config-standard": "^11.0.0",

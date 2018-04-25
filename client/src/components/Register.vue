@@ -1,50 +1,71 @@
 <template>
-  <div>
-    <input type="email" name="email" placeholder="email" v-model="userData.email">
-    <input type="password" name="password" placeholder="password" v-model="userData.password">
-    <button @click="register">Register</button>
-  </div>
+<v-layout>
+    <v-flex xs6 offset-xs3>
+        <panel title="Register">
+                <form
+                    name="group-tracker-form"
+                    autocomplete="off">
+                    <v-text-field
+                        label="E-mail"
+                        type="email"
+                        v-model="userData.email"
+                    ></v-text-field>
+                    <v-text-field
+                        label="Пароль"
+                        type="password"
+                        v-model="userData.password"
+                        autocomplete="new-password"
+                    ></v-text-field>
+                </form>
+                <div class="error" v-html="error"></div>
+                <br>
+                <v-btn
+                    dark
+                    class="brown lighten-3"
+                    @click="register">
+                    Register
+                </v-btn>
+        </panel>
+    </v-flex>
+</v-layout>
 </template>
 
 <script>
 import AuthinticationService from '@/services/AuthinticationService';
+import Panel from '@/components/Panel';
 
 export default {
-    name: 'HelloWorld',
+    name: 'Register',
+    components: {
+        Panel
+    },
     data () {
         return {
             userData: {
                 email: '',
-                password: 'dddd'
-            }
+                password: ''
+            },
+            error: null
         };
     },
     methods: {
         async register () {
-            const response = await AuthinticationService.register({
-                email: this.userData.email,
-                password: this.userData.password
-            });
-            console.log(response.data);
+            try {
+                const response = await AuthinticationService.register({
+                    email: this.userData.email,
+                    password: this.userData.password
+                });
+                console.log(response);
+            } catch (e) {
+                this.error = e.response.data.error;
+            }
         }
     }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.error {
+    color: red;
 }
 </style>
