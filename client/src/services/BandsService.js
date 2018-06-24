@@ -9,5 +9,8 @@ export default {
     },
     show (bandId) {
         return Api().get(`bands/${bandId}`);
+    },
+    put (band) {
+        return Api().put(`bands/${band.id}`, band);
     }
 };

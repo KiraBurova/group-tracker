@@ -17,5 +17,8 @@ module.exports = (app) => {
         BandsController.post)
     
     app.get('/bands/:bandId',
-        BandsController.show)    
+        BandsController.show)
+
+    app.put('/bands/:bandId',
+        BandsController.put)    
 }

@@ -1,15 +1,27 @@
 <template>
 <v-layout>
   <v-flex xs6>
-    <panel title="Band Metadata">
+    <panel title="About a band">
       <h1>{{band.name}}</h1>
       <img :src="band.imageUrl" :alt="band.name" class="band-image">
       <p class="band-description">{{band.description}}</p>
-      <a :href="band.youtubeChannel">Youtube</a>
+      <router-link
+        :to="`/bands/${band.id}/edit`"
+        tag="v-btn"
+        class="btn brown lighten-3 theme--dark">
+        Редактировать группу
+       </router-link>
     </panel>
   </v-flex>
   <v-flex xs6>
-
+      <panel title="YouTube Latest Video">
+            <youtube
+                :video-id="videoId"
+                :player-width="480"
+                :player-height="300"
+                ></youtube>
+            <a :href="band.youtubeChannel">Youtube</a>
+    </panel>
   </v-flex>
 </v-layout>
 </template>
@@ -24,12 +36,20 @@ export default {
     },
     data () {
         return {
-            band: {}
+            band: {},
+            videoId: null
         };
     },
     async mounted () {
         const bandId = this.$store.state.route.params.bandId;
         this.band = (await BandsService.show(bandId)).data;
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${this.band.youtubeChannel}&maxResults=1&order=date&type=video&key=`);
+        try {
+            const latestVideo = await response.json();
+            this.videoId = await latestVideo.items[0].id.videoId;
+        } catch (e) {
+            throw new Error(e);
+        }
     }
 };
 </script>
@@ -49,5 +69,11 @@ export default {
 }
 .band-link {
     display: block;
+}
+.flex {
+    padding-right: 20px;
+}
+.flex:last-of-type {
+    padding-right: 0;
 }
 </style>

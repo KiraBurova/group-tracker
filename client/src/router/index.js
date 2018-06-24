@@ -6,6 +6,7 @@ import Login from '@/components/Login';
 import Bands from '@/components/Bands';
 import AddBand from '@/components/AddBand';
 import Band from '@/components/Band';
+import EditBand from '@/components/EditBand';
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
             path: '/bands/:bandId',
             name: 'band',
             component: Band
+        },
+        {
+            path: '/bands/:bandId/edit',
+            name: 'band-edit',
+            component: EditBand
         }
     ]
 });

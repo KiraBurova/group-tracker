@@ -8,12 +8,13 @@ import { sync } from 'vuex-router-sync';
 import 'vuetify/dist/vuetify.min.css';
 import Vuetify from 'vuetify';
 import store from '@/store/store';
-
+import VueYoutubeEmbed from 'vue-youtube-embed';
 // Helpers
 import colors from 'vuetify/es5/util/colors';
 
 Vue.config.productionTip = false;
 
+Vue.use(VueYoutubeEmbed);
 Vue.use(Vuetify, {
     theme: {
         primary: colors.red.darken1, // #E53935

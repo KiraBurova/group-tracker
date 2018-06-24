@@ -32,5 +32,19 @@ module.exports = {
                 error: 'an error has occured tryin to fetch band'
             });
         }
+    },
+    async put (req, res) {
+        try {
+            const band = await Band.update(req.body, {
+                where: {
+                    id: req.params.bandId
+                }
+            });
+            res.send(req.body);
+        } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured tryin to update band'
+            });
+        }
     }
 }
